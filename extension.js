@@ -25,10 +25,11 @@ function activate(context) {
 
     const command =
       `echo "${textToPaste}" | pbcopy; ` +
-      `osascript ` +
+      ` osascript ` +
       ` -e 'tell application "Firefox Developer Edition" to activate' ` +
       ` -e 'tell application "System Events"' ` +
-      ` -e 'tell process "Firefox Developer Edition"' ` +
+      ` -e 'tell application process "Firefox Developer Edition"' ` +
+      ` -e 'set foremost to true' ` + 
       ` -e 'keystroke "v" using command down' ` + 
       ` -e 'keystroke return using shift down' ` +  
       ` -e 'end tell'`; 
