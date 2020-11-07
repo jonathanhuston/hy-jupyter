@@ -22,17 +22,17 @@ function activate(context) {
     // console.log('textToPaste', textToPaste);
     // console.log(editor.selections);
 
-
+    // FIX: backtick
     const command =
       `echo "${textToPaste}" | pbcopy; ` +
       ` osascript ` +
-      ` -e 'tell application "Firefox Developer Edition" to activate' ` +
+      ` -e 'activate application "Firefox Developer Edition"' ` +
       ` -e 'tell application "System Events"' ` +
-      ` -e 'tell application process "Firefox Developer Edition"' ` +
-      ` -e 'set foremost to true' ` + 
-      ` -e 'keystroke "v" using command down' ` + 
-      ` -e 'keystroke return using shift down' ` +  
-      ` -e 'end tell'`; 
+      ` -e 'tell process "Firefox Developer Edition"' ` +
+      ` -e 'set frontmost to true' ` +
+      ` -e 'keystroke "v" using command down' ` +
+      ` -e 'keystroke return using shift down' ` +
+      ` -e 'end tell' ` +
       ` -e 'end tell'`;
     // console.log("command", command);
     exec(command);
