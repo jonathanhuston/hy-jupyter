@@ -6,6 +6,8 @@ Run a Hy form (S-expression) in Jupyter notebook
 
 Visual Studio Code extension for Jupyter notebook running on Firefox Developer Edition on macOS.
 
+Shift+Enter runs form in active Jupyter notebook code cell.
+
 This extension adds the following command:
 `hy-jupyter.runForm` with the keybinding `shift + cmd + enter`
 

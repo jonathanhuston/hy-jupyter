@@ -2,7 +2,7 @@
   "name": "hy-jupyter",
   "displayName": "Hy Jupyter",
   "description": "Run a Hy form (S-expression) in Jupyter notebook",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "publisher": "jonathanhuston",
   "engines": {
     "vscode": "^1.15.0"
@@ -38,7 +38,7 @@
     "keybindings": [
       {
         "command": "hy-jupyter.runForm",
-        "key": "shift+cmd+enter",
+        "key": "shift+enter",
         "when": "editorTextFocus"
       }
     ]
