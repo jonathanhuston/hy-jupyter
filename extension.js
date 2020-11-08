@@ -3,9 +3,7 @@
 // Jupyter notebook must be open in Firefox Developer Edition, active code cell must be selected
 // Extension logic pilfered substantially from https://github.com/nachocab/vscode-run-external and https://github.com/dbankier/vscode-quick-select
 
-// TODO: behavior when outside form
-// TODO: behavior when no form
-// TODO: UTF-8
+// FIX: UTF-8
 
 const vscode = require('vscode');
 const { exec } = require('child_process');
@@ -88,6 +86,10 @@ function activate(context) {
     let end_offset = end_char.length;
     editor.selections = sel.map(s => {
       let { line, character } = s.active;
+      let current = doc.getText(new vscode.Range(new vscode.Position(line, character), new vscode.Position(line, character + 1)))
+      if (current.length == 0 && character > 0) {
+        character--;
+      }
       let starts = findOccurances(doc, line, start_char);
       let start = starts.find(a => a > character);
       let start_index = starts.indexOf(start);
@@ -99,7 +101,6 @@ function activate(context) {
         end_pos = new vscode.Position(end_pos.line, end_pos.character - 1 + end_offset);
         return new vscode.Selection(start_pos, end_pos)
       }
-      console.log(s)
       return s;
     })
   }));
@@ -124,18 +125,21 @@ function activate(context) {
       .replace(/\`/g, '\\`');
 
     // TODO: UTF-8
-    const command =
-      `echo -n "${textToPaste}" | pbcopy; ` +
-      ` osascript ` +
-      ` -e 'activate application "Firefox Developer Edition"' ` +
-      ` -e 'tell application "System Events"' ` +
-      ` -e 'tell process "Firefox Developer Edition"' ` +
-      ` -e 'set frontmost to true' ` +
-      ` -e 'keystroke "v" using command down' ` +
-      ` -e 'keystroke return using shift down' ` +
-      ` -e 'end tell' ` +
-      ` -e 'end tell'`;
-    exec(command, { shell: "/bin/zsh" });
+    if (textToPaste.length != 0) {
+      const command =
+        `echo -n "${textToPaste}" | pbcopy; ` +
+        ` osascript ` +
+        ` -e 'activate application "Firefox Developer Edition"' ` +
+        ` -e 'tell application "System Events"' ` +
+        ` -e 'tell process "Firefox Developer Edition"' ` +
+        ` -e 'set frontmost to true' ` +
+        ` -e 'keystroke "v" using command down' ` +
+        ` -e 'keystroke return using shift down' ` +
+        ` -e 'end tell' ` +
+        ` -e 'end tell'`;
+      exec(command, { shell: "/bin/zsh" });
+    }
+
   }));
 
   context.subscriptions.push(vscode.commands.registerCommand('hy-jupyter.runForm', function () {
