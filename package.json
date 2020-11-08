@@ -1,8 +1,8 @@
 {
-  "name": "run-jupyter",
-  "displayName": "Run in Jupyter",
-  "description": "Send the current selection or line to Jupyter",
-  "version": "0.0.3",
+  "name": "hy-jupyter",
+  "displayName": "Hy Jupyter",
+  "description": "Run a Hy form (S-expression) in Jupyter notebook",
+  "version": "0.2.0",
   "publisher": "jonathanhuston",
   "engines": {
     "vscode": "^1.15.0"
@@ -23,20 +23,22 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jonathanhuston/vscode-run-jupyter"
+    "url": "https://github.com/jonathanhuston/vscode-hy-jupyter"
   },
-  "activationEvents": ["onCommand:run-jupyter.fde"],
+  "activationEvents": [
+    "onCommand:hy-jupyter.runForm"
+  ],
   "contributes": {
     "commands": [
       {
-        "command": "run-jupyter.fde",
-        "title": "Run in Jupyter"
+        "command": "hy-jupyter.runForm",
+        "title": "Hy Jupyter: Run form"
       }
     ],
     "keybindings": [
       {
-        "command": "run-jupyter.fde",
-        "key": "cmd+shift+enter",
+        "command": "hy-jupyter.runForm",
+        "key": "shift+cmd+enter",
         "when": "editorTextFocus"
       }
     ]

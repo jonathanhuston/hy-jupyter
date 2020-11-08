@@ -1,12 +1,13 @@
 # Run in Jupyter
 
-Send a selection or a line to Jupyter
+Run a Hy form (S-expression) in Jupyter notebook
 
 ## Features
 
 Visual Studio Code extension for Jupyter notebook running on Firefox Developer Edition on macOS.
 
-This extension adds the command `run-jupyter.fde` and the keybinding `shift + cmd + enter`.
+This extension adds the following command:
+`hy-jupyter.runForm` with the keybinding `shift + cmd + enter`
 
 ## Usage
 
