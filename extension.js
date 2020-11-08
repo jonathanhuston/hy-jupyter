@@ -28,6 +28,7 @@ function activate(context) {
       .replace(/\`/g, '\\`');
 
     // TODO: remove newline
+    // TODO: UTF-8
     const command =
       `echo "${textToPaste}" | pbcopy; ` +
       ` osascript ` +
