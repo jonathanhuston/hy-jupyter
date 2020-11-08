@@ -1,3 +1,9 @@
+// Visual Studio Code extension for Jupyter notebook running on Firefox Developer Edition on macOS.
+// Send a selection or a line to Jupyter
+// This extension adds the command`run-jupyter.fde` and the keybinding`shift + cmd + enter`.
+// Jupyter notebook must be open in Firefox Developer Edition, active code cell must be selected(extension uses simple AppleScript cut and paste to browser)
+// Extension logic pilfered substantially from https://github.com/nachocab/vscode-run-external
+
 const vscode = require('vscode');
 const { exec } = require('child_process');
 
@@ -17,11 +23,9 @@ function activate(context) {
       })
       .join('\n')
       .replace(/\\/g, '\\\\') // escape quotes
-      .replace(/'/g, "'\\''") // escape quotes
+      .replace(/'/g, "'\\''") 
       .replace(/\"/g, '\\"')
       .replace(/\`/g, '\\`');
-    // console.log('textToPaste', textToPaste);
-    // console.log(editor.selections);
 
     // TODO: remove newline
     const command =
@@ -35,11 +39,9 @@ function activate(context) {
       ` -e 'keystroke return using shift down' ` +
       ` -e 'end tell' ` +
       ` -e 'end tell'`;
-    // console.log("command", command);
     exec(command);
   });
 
   context.subscriptions.push(runJupyter);
 }
 exports.activate = activate;
-//# sourceMappingURL=extension.js.map

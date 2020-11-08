@@ -2,7 +2,7 @@
   "name": "run-jupyter",
   "displayName": "Run in Jupyter",
   "description": "Send the current selection or line to Jupyter",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "jonathanhuston",
   "engines": {
     "vscode": "^1.15.0"
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jonathanhuston"
+    "url": "https://github.com/jonathanhuston/vscode-run-jupyter"
   },
   "activationEvents": ["onCommand:run-jupyter.fde"],
   "contributes": {
