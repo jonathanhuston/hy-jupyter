@@ -1,4 +1,4 @@
-# Run in Jupyter
+# Hy Jupyter
 
 Run a Hy form (S-expression) in Jupyter notebook
 
@@ -12,3 +12,4 @@ This extension adds the following command:
 ## Usage
 
 Jupyter notebook must be open in Firefox Developer Edition, active code cell must be selected (extension uses simple AppleScript cut and paste to browser)
+
