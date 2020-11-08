@@ -7,7 +7,10 @@
   "engines": {
     "vscode": "^1.15.0"
   },
-  "categories": ["Other"],
+  "categories": [
+    "Programming Languages", 
+    "Other"
+  ],
   "main": "./extension",
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
@@ -26,13 +29,14 @@
     "url": "https://github.com/jonathanhuston/vscode-hy-jupyter"
   },
   "activationEvents": [
-    "onCommand:hy-jupyter.runForm"
+    "onLanguage:hy"
   ],
   "contributes": {
     "commands": [
       {
         "command": "hy-jupyter.runForm",
-        "title": "Hy Jupyter: Run form"
+        "title": "Hy Jupyter: Run form",
+        "enablement": "editorLangId == hy"
       }
     ],
     "keybindings": [
