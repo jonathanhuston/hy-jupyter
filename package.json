@@ -2,14 +2,27 @@
   "name": "hy-jupyter",
   "displayName": "Hy Jupyter",
   "description": "Evaluate a Hy form (S-expression) in Jupyter notebook",
-  "version": "0.3.1",
+  "icon": "assets/slatescript.png",
+  "version": "0.3.2",
   "publisher": "jonathanhuston",
+  "author": {
+    "name": "Jonathan Huston"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jonathanhuston/vscode-hy-jupyter"
+  },
   "engines": {
     "vscode": "^1.15.0"
   },
   "categories": [
-    "Programming Languages", 
+    "Programming Languages",
+    "Notebooks", 
     "Other"
+  ],
+  "keywords": [
+    "Hy",
+    "Jupyter"
   ],
   "main": "./extension",
   "scripts": {
@@ -24,14 +37,37 @@
     "@types/node": "^8.0.26",
     "@types/mocha": "^2.2.42"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jonathanhuston/vscode-hy-jupyter"
-  },
   "activationEvents": [
     "onLanguage:hy"
   ],
   "contributes": {
+    "languages": [
+      {
+        "id": "hy",
+        "aliases": [
+          "Hy",
+          "Hylang",
+          "hy",
+          "hylang"
+        ],
+        "extensions": [
+          "hy"
+        ]
+      }
+    ],
+    "configuration": [
+      {
+        "type": "object",
+        "title": "Hy Jupyter",
+        "properties": {
+          "hy-jupyter.browser": {
+            "type": "string",
+            "default": "Firefox Developer Edition",
+            "description": "Browser for Jupyter notebook"
+          }
+        }
+      }
+    ],
     "commands": [
       {
         "command": "hy-jupyter.evaluateForm",

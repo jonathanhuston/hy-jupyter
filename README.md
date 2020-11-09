@@ -4,9 +4,9 @@ Evaluate a Hy form (S-expression) in Jupyter notebook
 
 ## Features
 
-Visual Studio Code extension for Jupyter notebook running on Firefox Developer Edition on macOS.
+Visual Studio Code extension for Jupyter notebook on macOS
 
-Shift+Enter (or Ctrl+Enter) evalutes the current form in active Jupyter notebook code cell.
+Shift+Enter or Ctrl+Enter evalutes the current form in active Jupyter notebook code cell
 
 This extension adds the following command:
 
@@ -18,4 +18,6 @@ It also adds the following two helper functions:
 
 ## Usage
 
-Jupyter notebook must be open in Firefox Developer Edition, active code cell must be selected (extension uses simple AppleScript cut and paste to browser)
+Jupyter notebook must be open in browser, active code cell must be selected (extension uses simple AppleScript cut and paste to browser)
+
+Set browser used by Jupyter notebook in Settings (`hy-jupyter.browser`)
