@@ -20,4 +20,4 @@ It also adds the following two helper functions:
 
 Jupyter notebook must be open in browser, active code cell must be selected (extension uses simple AppleScript cut and paste to browser)
 
-Set browser used by Jupyter notebook in Settings (`hy-jupyter.browser`)
+Browser used by Jupyter notebook can be specified in Settings (`hy-jupyter.browser`)
