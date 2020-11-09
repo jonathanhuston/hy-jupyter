@@ -9,7 +9,7 @@ Visual Studio Code extension for Jupyter notebook running on Firefox Developer E
 Shift+Enter runs form in active Jupyter notebook code cell.
 
 This extension adds the following command:
-`hy-jupyter.runForm` with the keybinding `shift + cmd + enter`
+`hy-jupyter.runForm` with the keybinding `shift+enter`
 
 ## Usage
 
