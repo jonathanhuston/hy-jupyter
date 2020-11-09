@@ -12,6 +12,10 @@ This extension adds the following command:
 
 `hy-jupyter.evaluateForm` with the keybindings `shift+enter` and `ctrl+enter`
 
+It also adds the following two helper functions:
+
+`hy-jupyter.selectForm` and `hy-jupyter.sendSelection`
+
 ## Usage
 
 Jupyter notebook must be open in Firefox Developer Edition, active code cell must be selected (extension uses simple AppleScript cut and paste to browser)
