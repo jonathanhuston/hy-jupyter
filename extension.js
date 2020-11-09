@@ -1,9 +1,10 @@
 // Visual Studio Code extension for Jupyter notebook running on Firefox Developer Edition on macOS.
-// Run a Hy form (S-expression) in Jupyter notebook
+// Evaluate a Hy form (S-expression) in Jupyter notebook
 // Jupyter notebook must be open in Firefox Developer Edition, active code cell must be selected
 // Extension logic pilfered substantially from https://github.com/nachocab/vscode-run-external and https://github.com/dbankier/vscode-quick-select
 
 // FIX: UTF-8
+// TODO: Evalute top level form
 
 const vscode = require('vscode');
 const { exec } = require('child_process');
@@ -142,7 +143,7 @@ function activate(context) {
 
   }));
 
-  context.subscriptions.push(vscode.commands.registerCommand('hy-jupyter.runForm', function () {
+  context.subscriptions.push(vscode.commands.registerCommand('hy-jupyter.evaluateForm', function () {
     vscode.commands.executeCommand("hy-jupyter.selectForm");
     sleep(500);
     vscode.commands.executeCommand("hy-jupyter.sendSelection");
