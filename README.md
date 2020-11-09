@@ -9,6 +9,7 @@ Visual Studio Code extension for Jupyter notebook running on Firefox Developer E
 Shift+Enter (or Ctrl+Enter) evalutes the current form in active Jupyter notebook code cell.
 
 This extension adds the following command:
+
 `hy-jupyter.evaluateForm` with the keybindings `shift+enter` and `ctrl+enter`
 
 ## Usage
