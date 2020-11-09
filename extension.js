@@ -5,6 +5,7 @@
 
 // FIX: UTF-8
 // TODO: Evalute top level form
+// TODO: Option to specify browser
 
 const vscode = require('vscode');
 const { exec } = require('child_process');
