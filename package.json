@@ -3,7 +3,7 @@
   "displayName": "Hy Jupyter",
   "description": "Evaluate a Hy form (S-expression) in Jupyter notebook",
   "icon": "assets/hy-jupyter.png",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "publisher": "jonathanhuston",
   "author": {
     "name": "Jonathan Huston"
@@ -73,6 +73,11 @@
         "command": "hy-jupyter.evaluateForm",
         "title": "Hy Jupyter: Evaluate current form",
         "enablement": "editorLangId == hy"
+      },
+      {
+        "command": "hy-jupyter.evaluateTopLevelForm",
+        "title": "Hy Jupyter: Evaluate top level form",
+        "enablement": "editorLangId == hy"
       }
     ],
     "keybindings": [
@@ -84,6 +89,11 @@
       {
         "command": "hy-jupyter.evaluateForm",
         "key": "ctrl+enter",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "hy-jupyter.evaluateTopLevelForm",
+        "key": "alt+enter",
         "when": "editorTextFocus"
       }
     ]

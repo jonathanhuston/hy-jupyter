@@ -74,6 +74,12 @@ function findPrevious(doc, line, char, start_index, nest_char = undefined, neste
   return findPrevious(doc, --line, char, undefined, nest_char, nested);
 }
 
+function findFirst(doc, line, char) {
+  if (line === -1) { return undefined };
+  var occurances = findOccurances(doc, line, char).filter(n => n === 1);
+  if (occurances.length < 1) { findFirst(doc, --line, char); }
+  return new vscode.Position(line, 1);
+}
 
 function activate(context) {
   context.subscriptions.push(vscode.commands.registerCommand('hy-jupyter.selectForm', function () {
@@ -95,6 +101,36 @@ function activate(context) {
       let start = starts.find(a => a > character);
       let start_index = starts.indexOf(start);
       let start_pos = findPrevious(doc, line, start_char, character, end_char) || new vscode.Position(line, starts[start_index]);
+      if (!start_pos) { return s };
+      let end_pos = findNext(doc, start_pos.line, end_char, start_pos.character + 1, start_char);
+      if (start_pos && end_pos) {
+        start_pos = new vscode.Position(start_pos.line, start_pos.character - start_offset);
+        end_pos = new vscode.Position(end_pos.line, end_pos.character - 1 + end_offset);
+        return new vscode.Selection(start_pos, end_pos)
+      }
+      return s;
+    })
+  }));
+
+  context.subscriptions.push(vscode.commands.registerCommand('hy-jupyter.selectTopLevelForm', function () {
+    const start_char = "(";
+    const end_char = ")";
+    let editor = vscode.window.activeTextEditor;
+    if (!editor) { return; };
+    let doc = editor.document
+    let sel = editor.selections
+    let start_offset = start_char.length;
+    let end_offset = end_char.length;
+    editor.selections = sel.map(s => {
+      let { line, character } = s.active;
+      let current = doc.getText(new vscode.Range(new vscode.Position(line, character), new vscode.Position(line, character + 1)))
+      if (current.length == 0 && character > 0) {
+        character--;
+      }
+      let starts = findOccurances(doc, line, start_char);
+      let start = starts.find(a => a > character);
+      let start_index = starts.indexOf(start);
+      let start_pos = findFirst(doc, line, start_char) || new vscode.Position(line, starts[start_index]);
       if (!start_pos) { return s };
       let end_pos = findNext(doc, start_pos.line, end_char, start_pos.character + 1, start_char);
       if (start_pos && end_pos) {
@@ -147,6 +183,12 @@ function activate(context) {
 
   context.subscriptions.push(vscode.commands.registerCommand('hy-jupyter.evaluateForm', function () {
     vscode.commands.executeCommand("hy-jupyter.selectForm");
+    sleep(500);
+    vscode.commands.executeCommand("hy-jupyter.sendSelection");
+  }));
+
+  context.subscriptions.push(vscode.commands.registerCommand('hy-jupyter.evaluateTopLevelForm', function () {
+    vscode.commands.executeCommand("hy-jupyter.selectTopLevelForm");
     sleep(500);
     vscode.commands.executeCommand("hy-jupyter.sendSelection");
   }));
