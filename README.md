@@ -15,6 +15,7 @@ Option+Enter evaluates the top level form in active Jupyter notebook code cell
 This extension adds the following commands:
 
 `hy-jupyter.evaluateForm` with the keybindings `shift+enter` and `ctrl+enter`
+
 `hy-jupyter.evaluateTopLevelForm` with the keybinding `alt+enter`
 
 It also adds the following helper functions:
