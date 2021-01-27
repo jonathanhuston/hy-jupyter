@@ -2,11 +2,11 @@
 // Evaluate a Hy form (S-expression) in Jupyter notebook
 // Jupyter notebook must be open in browser, active code cell must be selected
 // Extension logic pilfered substantially from https://github.com/nachocab/vscode-run-external and https://github.com/dbankier/vscode-quick-select
-
-// FIX: UTF-8
+// Depends on Clipboardy: https://github.com/sindresorhus/clipboardy
 
 const vscode = require('vscode');
 const { exec } = require('child_process');
+const clipboardy = require('clipboardy');
 
 const open_paren = "(";
 const close_paren = ")";
@@ -153,10 +153,9 @@ function activate(context) {
 
     const browser = vscode.workspace.getConfiguration("hy-jupyter").get("browser");
 
-    // TODO: UTF-8
     if (textToPaste.length != 0) {
+      clipboardy.writeSync(textToPaste)
       const command =
-        `echo -n "${textToPaste}" | pbcopy; ` +
         ` osascript ` +
         ` -e 'activate application "${browser}"' ` +
         ` -e 'tell application "System Events"' ` +

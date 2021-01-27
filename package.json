@@ -3,7 +3,7 @@
   "displayName": "Hy Jupyter",
   "description": "Evaluate a Hy form (S-expression) in Jupyter notebook",
   "icon": "assets/hy-jupyter.png",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "publisher": "jonathanhuston",
   "author": {
     "name": "Jonathan Huston"
@@ -17,7 +17,7 @@
   },
   "categories": [
     "Programming Languages",
-    "Notebooks", 
+    "Notebooks",
     "Other"
   ],
   "keywords": [
@@ -36,6 +36,9 @@
     "eslint": "^4.6.1",
     "@types/node": "^8.0.26",
     "@types/mocha": "^2.2.42"
+  },
+  "dependencies": {
+    "clipboardy": "^2.3.0"
   },
   "activationEvents": [
     "onLanguage:hy"
