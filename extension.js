@@ -145,11 +145,7 @@ function activate(context) {
           return editor.document.getText(selection);
         }
       })
-      .join('\n')
-      .replace(/\\/g, '\\\\') // escape quotes
-      .replace(/'/g, "'\\''")
-      .replace(/\"/g, '\\"')
-      .replace(/\`/g, '\\`');
+      .join('\n');
 
     const browser = vscode.workspace.getConfiguration("hy-jupyter").get("browser");
 
