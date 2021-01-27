@@ -3,7 +3,7 @@
   "displayName": "Hy Jupyter",
   "description": "Evaluate a Hy form (S-expression) in Jupyter notebook",
   "icon": "assets/hy-jupyter.png",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "publisher": "jonathanhuston",
   "author": {
     "name": "Jonathan Huston"

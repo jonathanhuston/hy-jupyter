@@ -4,10 +4,12 @@
 // Extension logic pilfered substantially from https://github.com/nachocab/vscode-run-external and https://github.com/dbankier/vscode-quick-select
 
 // FIX: UTF-8
-// TODO: Evalute top level form
 
 const vscode = require('vscode');
 const { exec } = require('child_process');
+
+const open_paren = "(";
+const close_paren = ")";
 
 function sleep(milliseconds) {
   const date = Date.now();
@@ -19,7 +21,7 @@ function sleep(milliseconds) {
 
 function findOccurances(doc, line, char) {
   var content = doc.lineAt(line);
-  var matches = (content.text + "hack").split(char).reduce((acc, p) => {
+  var matches = (content.text + "EOL").split(char).reduce((acc, p) => {
     var len = p.length + 1;
     if (acc.length > 0) {
       len += acc[acc.length - 1];
@@ -77,35 +79,29 @@ function findPrevious(doc, line, char, start_index, nest_char = undefined, neste
 function findFirst(doc, line, char) {
   if (line === -1) { return undefined };
   var occurances = findOccurances(doc, line, char).filter(n => n === 1);
-  if (occurances.length < 1) { findFirst(doc, --line, char); }
+  if (occurances.length < 1) { return findFirst(doc, --line, char); }
   return new vscode.Position(line, 1);
 }
 
 function activate(context) {
   context.subscriptions.push(vscode.commands.registerCommand('hy-jupyter.selectForm', function () {
-    const start_char = "(";
-    const end_char = ")";
     let editor = vscode.window.activeTextEditor;
     if (!editor) { return; };
     let doc = editor.document
     let sel = editor.selections
-    let start_offset = start_char.length;
-    let end_offset = end_char.length;
     editor.selections = sel.map(s => {
       let { line, character } = s.active;
       let current = doc.getText(new vscode.Range(new vscode.Position(line, character), new vscode.Position(line, character + 1)))
-      if (current.length == 0 && character > 0) {
-        character--;
-      }
-      let starts = findOccurances(doc, line, start_char);
+      if (current.length == 0 && character > 0) { character--; }
+      let starts = findOccurances(doc, line, open_paren);
       let start = starts.find(a => a > character);
       let start_index = starts.indexOf(start);
-      let start_pos = findPrevious(doc, line, start_char, character, end_char) || new vscode.Position(line, starts[start_index]);
+      let start_pos = findPrevious(doc, line, open_paren, character, close_paren) || new vscode.Position(line, starts[start_index]);
       if (!start_pos) { return s };
-      let end_pos = findNext(doc, start_pos.line, end_char, start_pos.character + 1, start_char);
+      let end_pos = findNext(doc, start_pos.line, close_paren, start_pos.character + 1, open_paren);
       if (start_pos && end_pos) {
-        start_pos = new vscode.Position(start_pos.line, start_pos.character - start_offset);
-        end_pos = new vscode.Position(end_pos.line, end_pos.character - 1 + end_offset);
+        start_pos = new vscode.Position(start_pos.line, start_pos.character - 1);
+        end_pos = new vscode.Position(end_pos.line, end_pos.character);
         return new vscode.Selection(start_pos, end_pos)
       }
       return s;
@@ -113,29 +109,23 @@ function activate(context) {
   }));
 
   context.subscriptions.push(vscode.commands.registerCommand('hy-jupyter.selectTopLevelForm', function () {
-    const start_char = "(";
-    const end_char = ")";
     let editor = vscode.window.activeTextEditor;
     if (!editor) { return; };
     let doc = editor.document
     let sel = editor.selections
-    let start_offset = start_char.length;
-    let end_offset = end_char.length;
     editor.selections = sel.map(s => {
       let { line, character } = s.active;
       let current = doc.getText(new vscode.Range(new vscode.Position(line, character), new vscode.Position(line, character + 1)))
-      if (current.length == 0 && character > 0) {
-        character--;
-      }
-      let starts = findOccurances(doc, line, start_char);
+      if (current.length == 0 && character > 0) { character--; }
+      let starts = findOccurances(doc, line, open_paren);
       let start = starts.find(a => a > character);
       let start_index = starts.indexOf(start);
-      let start_pos = findFirst(doc, line, start_char) || new vscode.Position(line, starts[start_index]);
+      let start_pos = findFirst(doc, line, open_paren) || new vscode.Position(line, starts[start_index]);
       if (!start_pos) { return s };
-      let end_pos = findNext(doc, start_pos.line, end_char, start_pos.character + 1, start_char);
+      let end_pos = findNext(doc, start_pos.line, close_paren, start_pos.character + 1, open_paren);
       if (start_pos && end_pos) {
-        start_pos = new vscode.Position(start_pos.line, start_pos.character - start_offset);
-        end_pos = new vscode.Position(end_pos.line, end_pos.character - 1 + end_offset);
+        start_pos = new vscode.Position(start_pos.line, start_pos.character - 1);
+        end_pos = new vscode.Position(end_pos.line, end_pos.character);
         return new vscode.Selection(start_pos, end_pos)
       }
       return s;
